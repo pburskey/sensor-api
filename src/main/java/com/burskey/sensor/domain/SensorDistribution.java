@@ -13,7 +13,7 @@ public class SensorDistribution
     public Double low;
     public Date dateTime;
     public Number standardDeviation = null;
-    public List<Double[]> history = new ArrayList<>();
+    public Double[] history = null;
     public SensorMonitorEvent event;
     public List<SensorEvent> events = new ArrayList<>();
 
@@ -56,10 +56,9 @@ public class SensorDistribution
         }
         if (list != null && !list.isEmpty())
         {
-            Double[] tempArray = list.toArray(new Double[list.size()]);
-            this.history.add(tempArray);
+            this.history = list.toArray(new Double[list.size()]);
 
-            Number[] numbers = tempArray;
+            Number[] numbers = this.history;
             this.standardDeviation = this.standardDeviation(numbers);
         }
 
@@ -74,8 +73,6 @@ public class SensorDistribution
         Double standardDeviation = null;
         if (numbers != null)
         {
-
-
             standardDeviation = DoubleStatistics.computeStandardDeviation(numbers);
         }
 

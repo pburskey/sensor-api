@@ -10,13 +10,31 @@ import java.util.List;
 
 public class SensorMonitorEvent {
 
+    private Long sensorMonitorEventSkey = null;
     private Date start;
     private Date stop;
+    private Date creationDate = null;
+
+    public Date getCreationDate() {
+        return creationDate;
+    }
+
+    public void setCreationDate(Date creationDate) {
+        this.creationDate = creationDate;
+    }
+
     private SensorMonitorEventItem[] items;
 
     public SensorMonitorEvent() {
     }
 
+    public Long getSensorMonitorEventSkey() {
+        return sensorMonitorEventSkey;
+    }
+
+    public void setSensorMonitorEventSkey(Long sensorMonitorEventSkey) {
+        this.sensorMonitorEventSkey = sensorMonitorEventSkey;
+    }
 
     public Date getStart() {
         return start;
@@ -50,7 +68,9 @@ public class SensorMonitorEvent {
 
     public SensorMonitorEvent from(SensorEventPayload eventPayload) {
 
-        if (eventPayload != null) {
+        if (eventPayload != null)
+        {
+            this.setCreationDate(new Date());
             try {
                 this.setStart(ParseTimestamp.parse(eventPayload.getStart()));
 

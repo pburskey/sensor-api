@@ -20,4 +20,16 @@ public class ParseTimestamp {
 
         return date;
     }
+
+    public static String from(Date timeStamp) {
+        String aString = null;
+
+        if (timeStamp != null ) {
+
+            //2018-04-22_17:03:33
+            SimpleDateFormat format = new SimpleDateFormat(pattern);
+            aString = format.format(timeStamp);
+        }
+        return aString;
+    }
 }

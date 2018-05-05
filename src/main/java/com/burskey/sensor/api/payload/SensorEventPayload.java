@@ -2,6 +2,16 @@ package com.burskey.sensor.api.payload;
 
 public class SensorEventPayload {
 
+    private Long sensorMonitorEventSkey = null;
+
+    public Long getSensorMonitorEventSkey() {
+        return sensorMonitorEventSkey;
+    }
+
+    public void setSensorMonitorEventSkey(Long sensorMonitorEventSkey) {
+        this.sensorMonitorEventSkey = sensorMonitorEventSkey;
+    }
+
     private String start;
     private String stop;
     private SensorEventItemPayload[] items;

@@ -13,6 +13,24 @@ public class SensorEventItemPayload
     private String timeStamp = null;
     private String measurement = null;
 
+    private Long sensorMonitorEventSkey = null;
+    private Long sensorMontiorEventItemSkey = null;
+
+    public Long getSensorMonitorEventSkey() {
+        return sensorMonitorEventSkey;
+    }
+
+    public void setSensorMonitorEventSkey(Long sensorMonitorEventSkey) {
+        this.sensorMonitorEventSkey = sensorMonitorEventSkey;
+    }
+
+    public Long getSensorMontiorEventItemSkey() {
+        return sensorMontiorEventItemSkey;
+    }
+
+    public void setSensorMontiorEventItemSkey(Long sensorMontiorEventItemSkey) {
+        this.sensorMontiorEventItemSkey = sensorMontiorEventItemSkey;
+    }
 
     public String getTimeStamp() {
         return timeStamp;

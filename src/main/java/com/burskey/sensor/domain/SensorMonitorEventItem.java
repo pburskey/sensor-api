@@ -9,6 +9,24 @@ import java.util.Date;
 public class SensorMonitorEventItem {
     private Date timeStamp = null;
     private Double measurement = null;
+    private Long sensorMonitorEventSkey = null;
+    private Long sensorMontiorEventItemSkey = null;
+
+    public Long getSensorMonitorEventSkey() {
+        return sensorMonitorEventSkey;
+    }
+
+    public void setSensorMonitorEventSkey(Long sensorMonitorEventSkey) {
+        this.sensorMonitorEventSkey = sensorMonitorEventSkey;
+    }
+
+    public Long getSensorMontiorEventItemSkey() {
+        return sensorMontiorEventItemSkey;
+    }
+
+    public void setSensorMontiorEventItemSkey(Long sensorMontiorEventItemSkey) {
+        this.sensorMontiorEventItemSkey = sensorMontiorEventItemSkey;
+    }
 
     public Date getTimeStamp() {
         return timeStamp;
