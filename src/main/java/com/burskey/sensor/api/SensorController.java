@@ -25,7 +25,7 @@ public class SensorController {
     SensorMonitorDAO sensorMonitorDAO = null;
 
 
-    @CrossOrigin(origins = {"http://localhost:3000", "http://www.burskey.com", "www.burskey.com/:1"})
+    @CrossOrigin(origins = {"http://localhost:3000", "http://www.burskey.com", "www.burskey.com/:1", "http://burskey.com/:1","http://burskey.com"})
     @RequestMapping(
             value = "/sensor/events/last",
             method = RequestMethod.GET,

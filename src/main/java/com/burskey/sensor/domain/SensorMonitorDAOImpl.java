@@ -95,7 +95,7 @@ public class SensorMonitorDAOImpl implements SensorMonitorDAO
                 "    where 2=2\n" +
                 "    order by create_ts desc \n" +
                 "    limit :limit\n" +
-                "  )";
+                "  ) order by recordedDateTime";
         NamedParameterJdbcTemplate template = new NamedParameterJdbcTemplate(this.dataSource);
         MapSqlParameterSource map = new MapSqlParameterSource();
         map.addValue("limit", limit, Types.INTEGER);
