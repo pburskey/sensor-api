@@ -33,6 +33,17 @@ public class SensorController {
             produces = "application/json")
     public @ResponseBody SensorEventItemPayload[] getLastNSensorEvents(@RequestParam(value="limit", defaultValue = "5") String limit)
     {
+        int aLimit = 5;
+
+        try
+        {
+            aLimit = Integer.parseInt(limit);
+        }
+        catch (Exception e)
+        {
+            aLimit = 5;
+        }
+
         SensorMonitorEventItem[] events = this.getSensorMonitorDAO().getLastNEvents(Integer.parseInt(limit));
 
         List<SensorEventItemPayload> list = new ArrayList<>();
