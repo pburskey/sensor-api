@@ -131,4 +131,50 @@ public class SensorMonitorDAOImpl implements SensorMonitorDAO
     }
 
 
+    public SensorMonitorEvent getSensorMonitorEvent(Long skey)
+    {
+        SensorMonitorEvent event = null;
+
+        String sql = "select sensor_monitor_event_skey, start, stop, create_ts\n" +
+                "from sensor_monitor_event\n" +
+                "where 1=1\n" +
+                "  and sensor_monitor_event_skey = :sensor_monitor_event_skey";
+        NamedParameterJdbcTemplate template = new NamedParameterJdbcTemplate(this.dataSource);
+        MapSqlParameterSource map = new MapSqlParameterSource();
+        map.addValue("sensor_monitor_event_skey", skey, Types.INTEGER);
+
+        List<SensorMonitorEvent> list = template.query(sql, map, this.getEventRowMapper() );
+
+        if (list != null && !list.isEmpty())
+        {
+            event = list.get(0);
+        }
+
+        return event;
+    }
+
+
+    public RowMapper<SensorMonitorEvent> getEventRowMapper()
+    {
+        return new RowMapper<SensorMonitorEvent>() {
+            @Override
+            public SensorMonitorEvent mapRow(ResultSet resultSet, int i) throws SQLException {
+                SensorMonitorEvent dto = new SensorMonitorEvent();
+                dto.setCreationDate(resultSet.getTimestamp("create_ts"));
+                dto.setSensorMonitorEventSkey(resultSet.getLong("sensor_monitor_event_skey"));
+                dto.setStart(resultSet.getTimestamp("start"));
+                dto.setStop(resultSet.getTimestamp("stop"));
+
+
+
+                return dto;
+            }
+        };
+    }
+
+
+    @Override
+    public SensorMonitorEvent getLastEvent() {
+        return null;
+    }
 }

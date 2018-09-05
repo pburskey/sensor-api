@@ -1,6 +1,7 @@
 package com.burskey.sensor.api;
 
 import com.burskey.sensor.api.payload.SensorEventItemPayload;
+import com.burskey.sensor.api.payload.SensorEventOverviewPayload;
 import com.burskey.sensor.api.payload.SensorEventPayload;
 import com.burskey.sensor.domain.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -71,6 +72,49 @@ public class SensorController {
 
 
 
+    @CrossOrigin(origins = {"http://localhost:3000", "http://www.burskey.com", "www.burskey.com/:1", "http://burskey.com/:1","http://burskey.com"})
+    @RequestMapping(
+            value = "/sensor/events/lastevent",
+            method = RequestMethod.GET,
+            headers = "Accept=application/xml, application/json" ,
+            produces = "application/json")
+    public @ResponseBody SensorEventItemPayload[] getLastSensorEvent()
+    {
+
+        SensorMonitorEvent event = this.getSensorMonitorDAO().getLastEvent();
+        SensorMonitorEventItem[] events = event.getItems();
+
+
+        SensorEventOverviewPayload overviewPayload = new SensorEventOverviewPayload();
+
+
+        List<SensorEventItemPayload> list = new ArrayList<>();
+        for(SensorMonitorEventItem item : events)
+        {
+            SensorEventItemPayload payload = new SensorEventItemPayload();
+            payload.setMeasurement(item.getMeasurement().toString());
+            payload.setTimeStamp(ParseTimestamp.from(item.getTimeStamp()));
+            payload.setSensorMonitorEventSkey(item.getSensorMonitorEventSkey());
+            payload.setSensorMontiorEventItemSkey(item.getSensorMontiorEventItemSkey());
+            list.add(payload);
+        }
+
+        SensorEventItemPayload[] payloads = null;
+        if (list != null && !list.isEmpty())
+        {
+            payloads = list.toArray(new SensorEventItemPayload[list.size()]);
+        }
+
+
+        return payloads;
+//        return new ResponseEntity<List<SensorEventItemPayload>>(list, HttpStatus.OK);
+
+    }
+
+
+
+
+
     @RequestMapping(value = "/sensor", method = RequestMethod.POST, headers = "Accept=application/xml, application/json")
     public ResponseEntity<?> saveSensor(@RequestBody SensorEventPayload eventPayload)
     {
@@ -85,7 +129,7 @@ public class SensorController {
                 for(SensorMonitorEventItem anItem : event.getItems())
                 {
                     list.add(anItem.getMeasurement());
-//                    System.out.println("Measurement: " + anItem.getTimeStamp() + " " + anItem.getMeasurement());
+                    System.out.println("Measurement: " + anItem.getTimeStamp() + " " + anItem.getMeasurement());
                 }
             }
 
@@ -109,6 +153,18 @@ public class SensorController {
 
         return new ResponseEntity<String>("groovy", HttpStatus.OK);
     }
+
+
+
+
+
+    @RequestMapping(value = "/checkin", method = RequestMethod.GET, headers = "Accept=application/xml, application/json")
+    public ResponseEntity<?> checkin()
+    {
+        System.out.println("check in...");
+        return new ResponseEntity<String>("groovy", HttpStatus.OK);
+    }
+
 
 
     public SensorMonitorDAO getSensorMonitorDAO() {

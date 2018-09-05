@@ -8,4 +8,7 @@ public interface SensorMonitorDAO {
 
 
     public SensorMonitorEventItem[] getLastNEvents(int i);
+
+    public SensorMonitorEvent getLastEvent();
+
 }
